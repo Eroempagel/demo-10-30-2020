@@ -80,12 +80,12 @@ for (
     if (currentPlayer === "X") {
       clickedCellElement.innerHTML = "X";
       currentPlayer = "O";
-      playerXSelections.push(clickedCellElement.id);
+      playerXSelections.push(Number(clickedCellElement.id));
       checkForWin(winningCombinations, playerXSelections);
     } else {
       clickedCellElement.innerHTML = "O";
       currentPlayer = "X";
-      playerOSelections.push(clickedCellElement.id);
+      playerOSelections.push(Number(clickedCellElement.id));
       checkForWin(winningCombinations, playerOSelections);
     }
 
@@ -105,7 +105,25 @@ for (
 //             if matches is **equal** to 3, we found a win, so return true (which will stop the loop and exit the function)
 //     if we got through all combinations without returning true, then return false because no win was found
 
-function checkForWin(winningCombination, playerSelections) {
-  console.log(winningCombination, "winning combos");
-  console.log(playerSelections, "what the player has picked so far");
+function checkForWin(winningCombinations, playerSelections) {
+  //console.log(winningCombinations, "winning combos");
+  //console.log(playerSelections, "what the player has picked so far");
+
+  for (let i = 0; i < winningCombinations.length; i++) {
+    console.log(winningCombinations[i]);
+    let currentCombo = winningCombinations[i];
+    let matches = 0;
+    for (let j = 0; j < currentCombo.length; j++) {
+      let currentComboNumber = currentCombo[j];
+      if (playerSelections.includes(currentComboNumber)) {
+        matches++;
+      }
+      console.log(matches);
+      if (matches === 3) {
+        console.log("You Win!");
+        return true;
+      }
+    }
+  }
+  return false;
 }
